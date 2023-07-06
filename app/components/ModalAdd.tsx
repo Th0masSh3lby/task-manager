@@ -1,4 +1,4 @@
-import toDoStore from "./ToDoStore.tsx";
+import toDoStore from "./ToDoStore";
 import React from "react";
 
 //Modal to add tasks
