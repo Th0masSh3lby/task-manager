@@ -1,5 +1,5 @@
 import React from "react";
-import toDoStore from "./TodoStore";
+import toDoStore from "./ToDoStore";
 
 //Modal to delete tasks
 interface ModalDelProps {

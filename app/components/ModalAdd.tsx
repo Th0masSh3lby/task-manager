@@ -1,5 +1,5 @@
+import toDoStore from "./ToDoStore.tsx";
 import React from "react";
-import toDoStore from "./TodoStore";
 
 //Modal to add tasks
 interface ModalAddProps {
@@ -14,7 +14,6 @@ interface ModalAddProps {
 const ModalAdd: React.FC<ModalAddProps> = ({
   modalOpen,
   setModalOpen,
-
   newTodoTitle,
   setNewTodoTitle,
   newTodoDes,
