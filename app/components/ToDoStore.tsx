@@ -61,12 +61,13 @@ let initialState: any = {
 };
 
 //setting local storage and changing initial state if local storage exists
-
-if (localStorage.getItem("ToDoStoreList")) {
-  const json = JSON.parse(localStorage.getItem("ToDoStoreList") || "");
-  console.log(json);
-  if (RootStore.is(json)) {
-    initialState = json;
+if (typeof window !== "undefined") {
+  if (localStorage.getItem("ToDoStoreList")) {
+    const json = JSON.parse(localStorage.getItem("ToDoStoreList") || "");
+    console.log(json);
+    if (RootStore.is(json)) {
+      initialState = json;
+    }
   }
 }
 
