@@ -1,9 +1,24 @@
 "use client";
 import AddTask from "./components/AddTask";
 import ToDoListView from "./components/ToDoListView";
-import toDoStore from "./components/ToDoStore";
+import toDoStore, { RootStore, toDo } from "./components/ToDoStore";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  //setting local storage and changing initial state if local storage exists
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (localStorage.getItem("ToDoStoreList")) {
+        const json = JSON.parse(localStorage.getItem("ToDoStoreList") || "");
+        console.log(json);
+        if (RootStore.is(json)) {
+          let storedState: any = json.todos;
+          toDoStore.changeStore(storedState);
+        }
+      }
+    }
+  }, []);
   return (
     <main className="flex min-h-screen flex-col items-center p-12">
       {/*--------Heading------*/}

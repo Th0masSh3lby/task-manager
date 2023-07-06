@@ -1,7 +1,7 @@
 "use client";
 import { types, onSnapshot } from "mobx-state-tree";
 //Todo -- task with name, description and status
-const toDo = types
+export const toDo = types
   .model({
     title: types.optional(types.string, ""),
     description: types.optional(types.string, ""),
@@ -16,7 +16,7 @@ const toDo = types
   });
 
 //RootStore --- Store for all Todos(tasks)
-const RootStore = types
+export const RootStore = types
   .model({
     todos: types.optional(types.array(toDo), []),
   })
@@ -41,35 +41,17 @@ const RootStore = types
     function deleteTodo(index: number) {
       self.todos.splice(index, 1);
     }
+    //function for updating storage
+    function changeStore(array: Array<typeof toDo>) {
+      self.todos.splice(0, self.todos.length, ...array);
+    }
 
-    return { addTodo, updateTodo, deleteTodo };
+    return { addTodo, updateTodo, deleteTodo, changeStore };
   });
 
-let initialState: any = {
-  todos: [
-    {
-      title: "Next.js",
-      description: "Learn Next.js and solve the assignment given",
-      status: true,
-    },
-    {
-      title: "Assignment",
-      description: "Submit Assigment before due date",
-      status: false,
-    },
-  ],
+const initialState: any = {
+  todos: [],
 };
-
-//setting local storage and changing initial state if local storage exists
-if (typeof window !== "undefined") {
-  if (localStorage.getItem("ToDoStoreList")) {
-    const json = JSON.parse(localStorage.getItem("ToDoStoreList") || "");
-    console.log(json);
-    if (RootStore.is(json)) {
-      initialState = json;
-    }
-  }
-}
 
 const toDoStore = RootStore.create(initialState);
 onSnapshot(toDoStore, (snapshot) => {
